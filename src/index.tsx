@@ -3,15 +3,20 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById("root") as HTMLElement
 // );
+
+const queryClient = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
