@@ -12,6 +12,7 @@ import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 import { Helmet } from "react-helmet";
+import CandleStick from "./CandleStick";
 
 interface RouteParams {
   coinId: string;
@@ -91,6 +92,7 @@ function Coin() {
   const { state } = useLocation<RouteState>(); // console.log(location | state.name); //state: { name: coin.name }
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
+  const candleStickMatch = useRouteMatch("/:coinId/candleStick");
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
   // const [priceInfo, setPriceInfo] = useState<PriceData>();
@@ -176,15 +178,23 @@ function Coin() {
           </Overview>
 
           <Tabs>
+            <Tab isActive={candleStickMatch !== null}>
+              <Link to={`/${coinId}/candleStick`}>CandleStick</Link>
+            </Tab>
+
             <Tab isActive={chartMatch !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
+
             <Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
 
           <Switch>
+            <Route path={`/:coinId/candleStick`}>
+              <CandleStick coinId={coinId} />
+            </Route>
             <Route path={`/:coinId/price`}>
               <Price tickersData={tickersData} />
             </Route>
@@ -289,7 +299,7 @@ const Description = styled.p`
 
 const Tabs = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin: 25px 0px;
   gap: 10px;
 `;

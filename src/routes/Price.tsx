@@ -38,7 +38,7 @@ interface PriceProps {
 }
 
 function Price({ tickersData }: PriceProps) {
-  console.log(tickersData?.quotes.USD);
+  // console.log(tickersData?.quotes.USD);
 
   return (
     <div>
