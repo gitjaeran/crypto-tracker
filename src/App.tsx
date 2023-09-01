@@ -1,6 +1,8 @@
 import Router from "./Router";
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { lightTheme, darkTheme } from "./theme";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
 /**add */
@@ -72,11 +74,16 @@ table {
 `;
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const toggleTheme = () => setIsDark(current => !current);
+
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <Router isDark={isDark} toggleTheme={toggleTheme} />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

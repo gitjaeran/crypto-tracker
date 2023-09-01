@@ -83,8 +83,8 @@ const HighestPrice = styled.div`
   margin-top: 50px;
   border-radius: 10px;
   background-color: ${props => props.theme.bgColor};
-  border-color: ${props => props.theme.boxColor};
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid ${props => props.theme.priceColor};
+  box-shadow: ${props => props.theme.priceColor} 0px 0px 4px 0px;
 
   span {
     font-size: 12px;
@@ -99,17 +99,16 @@ const BeforePrice = styled.div`
   grid-template-columns: repeat(2, 1fr);
   margin: 25px 0px;
   gap: 20px;
-  border-radius: 10px;
   text-align: center;
 
   div {
     display: flex;
     flex-direction: column;
     background-color: ${props => props.theme.bgColor};
-    border-color: ${props => props.theme.boxColor};
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 10px;
+    border: 1px solid ${props => props.theme.priceColor};
+    box-shadow: ${props => props.theme.priceColor} 0px 0px 4px 0px;
     padding: 10px 20px;
+    border-radius: 10px;
   }
 
   span:first-child {

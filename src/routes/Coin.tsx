@@ -14,6 +14,10 @@ import Price from "./Price";
 import { Helmet } from "react-helmet";
 import CandleStick from "./CandleStick";
 
+interface ICoinProps {
+  isDark: boolean;
+}
+
 interface RouteParams {
   coinId: string;
 }
@@ -87,7 +91,7 @@ interface PriceData {
   };
 }
 
-function Coin() {
+function Coin({ isDark }: ICoinProps) {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>(); // console.log(location | state.name); //state: { name: coin.name }
   const priceMatch = useRouteMatch("/:coinId/price");
@@ -134,12 +138,12 @@ function Coin() {
         </title>
       </Helmet>
 
-      <BtnWrap>
+      {/* <BtnWrap>
         <HomeBtn>
           <Link to={"/"}>HOME</Link>
         </HomeBtn>
         <ThemeBtn>THEME</ThemeBtn>
-      </BtnWrap>
+      </BtnWrap> */}
 
       <Header>
         <Title>
@@ -193,13 +197,13 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/candleStick`}>
-              <CandleStick coinId={coinId} />
+              <CandleStick isDark={isDark} coinId={coinId} />
             </Route>
             <Route path={`/:coinId/price`}>
               <Price tickersData={tickersData} />
             </Route>
             <Route path={`/:coinId/chart`}>
-              <Chart coinId={coinId} />
+              <Chart isDark={isDark} coinId={coinId} />
             </Route>
           </Switch>
         </>
