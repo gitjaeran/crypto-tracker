@@ -26,7 +26,7 @@ function CandleStick({ coinId, isDark }: ChartProps) {
       // refetchInterval: 10000,
     }
   );
-  console.log(data);
+  //   console.log(data);
 
   return (
     <div>

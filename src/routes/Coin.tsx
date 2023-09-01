@@ -159,7 +159,11 @@ function Coin({ isDark }: ICoinProps) {
             </Style.OverviewItem>
             <Style.OverviewItem>
               <span>Price:</span>
-              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+              {tickersLoading ? (
+                "Loading"
+              ) : (
+                <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+              )}
             </Style.OverviewItem>
           </Style.Overview>
           <Style.Description>{infoData?.description}</Style.Description>
