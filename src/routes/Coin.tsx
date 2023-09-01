@@ -131,11 +131,20 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </title>
       </Helmet>
+
+      <BtnWrap>
+        <HomeBtn>
+          <Link to={"/"}>HOME</Link>
+        </HomeBtn>
+        <ThemeBtn>THEME</ThemeBtn>
+      </BtnWrap>
+
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -177,7 +186,7 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price tickersData={tickersData} />
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />
@@ -195,6 +204,43 @@ const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
   margin: 0 auto;
+`;
+
+const BtnWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const HomeBtn = styled.button`
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: ${props => props.theme.boxColor};
+  a {
+    color: ${props => props.theme.textColor};
+    &:hover,
+    :active {
+      color: ${props => props.theme.accentColor};
+    }
+  }
+`;
+
+const ThemeBtn = styled.button`
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: ${props => props.theme.boxColor};
+  color: ${props => props.theme.textColor};
+  &:hover,
+  :active {
+    color: ${props => props.theme.accentColor};
+  }
 `;
 
 const Header = styled.header`
@@ -217,7 +263,7 @@ const Loader = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props => props.theme.boxColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -235,6 +281,10 @@ const OverviewItem = styled.div`
 `;
 const Description = styled.p`
   margin: 20px 0px;
+  background-color: ${props => props.theme.boxColor};
+  padding: 10px 20px;
+  border-radius: 10px;
+  line-height: 1.5;
 `;
 
 const Tabs = styled.div`
@@ -249,7 +299,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props => props.theme.boxColor};
   padding: 7px 0px;
   border-radius: 10px;
 
