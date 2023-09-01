@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import * as Style from "./styles/Header";
 
 interface IHeaderProps {
   toggleTheme: () => void;
@@ -7,53 +7,13 @@ interface IHeaderProps {
 
 function Header({ toggleTheme }: IHeaderProps) {
   return (
-    <BtnWrap>
-      <HomeBtn>
+    <Style.BtnWrap>
+      <Style.HomeBtn>
         <Link to={"/"}>HOME</Link>
-      </HomeBtn>
-      <ThemeBtn onClick={toggleTheme}>THEME</ThemeBtn>
-    </BtnWrap>
+      </Style.HomeBtn>
+      <Style.ThemeBtn onClick={toggleTheme}>THEME</Style.ThemeBtn>
+    </Style.BtnWrap>
   );
 }
 
 export default Header;
-
-const BtnWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0px 20px;
-  max-width: 480px;
-  margin: 0 auto;
-`;
-
-const HomeBtn = styled.button`
-  border: none;
-  font-size: 12px;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: ${props => props.theme.boxColor};
-  a {
-    color: ${props => props.theme.textColor};
-    &:hover,
-    :active {
-      color: ${props => props.theme.accentColor};
-    }
-  }
-`;
-
-const ThemeBtn = styled.button`
-  border: none;
-  font-size: 12px;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: ${props => props.theme.boxColor};
-  color: ${props => props.theme.textColor};
-  &:hover,
-  :active {
-    color: ${props => props.theme.accentColor};
-  }
-`;

@@ -6,13 +6,13 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 import { Helmet } from "react-helmet";
 import CandleStick from "./CandleStick";
+import * as Style from "../styles/Coin";
 
 interface ICoinProps {
   isDark: boolean;
@@ -131,69 +131,62 @@ function Coin({ isDark }: ICoinProps) {
   const loading = infoLoading || tickersLoading;
 
   return (
-    <Container>
+    <Style.Container>
       <Helmet>
         <title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </title>
       </Helmet>
 
-      {/* <BtnWrap>
-        <HomeBtn>
-          <Link to={"/"}>HOME</Link>
-        </HomeBtn>
-        <ThemeBtn>THEME</ThemeBtn>
-      </BtnWrap> */}
-
-      <Header>
-        <Title>
+      <Style.Header>
+        <Style.Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-        </Title>
-      </Header>
+        </Style.Title>
+      </Style.Header>
 
       {loading ? (
-        <Loader>Loading...</Loader>
+        <Style.Loader>Loading...</Style.Loader>
       ) : (
         <>
-          <Overview>
-            <OverviewItem>
+          <Style.Overview>
+            <Style.OverviewItem>
               <span>Rank:</span>
               <span>{infoData?.rank}</span>
-            </OverviewItem>
-            <OverviewItem>
+            </Style.OverviewItem>
+            <Style.OverviewItem>
               <span>Symbol:</span>
               <span>${infoData?.symbol}</span>
-            </OverviewItem>
-            <OverviewItem>
+            </Style.OverviewItem>
+            <Style.OverviewItem>
               <span>Price:</span>
               <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
-            </OverviewItem>
-          </Overview>
-          <Description>{infoData?.description}</Description>
-          <Overview>
-            <OverviewItem>
+            </Style.OverviewItem>
+          </Style.Overview>
+          <Style.Description>{infoData?.description}</Style.Description>
+          <Style.Overview>
+            <Style.OverviewItem>
               <span>Total Suply:</span>
               <span>{tickersData?.total_supply}</span>
-            </OverviewItem>
-            <OverviewItem>
+            </Style.OverviewItem>
+            <Style.OverviewItem>
               <span>Max Supply:</span>
               <span>{tickersData?.max_supply}</span>
-            </OverviewItem>
-          </Overview>
+            </Style.OverviewItem>
+          </Style.Overview>
 
-          <Tabs>
-            <Tab isActive={candleStickMatch !== null}>
+          <Style.Tabs>
+            <Style.Tab isActive={candleStickMatch !== null}>
               <Link to={`/${coinId}/candleStick`}>CandleStick</Link>
-            </Tab>
+            </Style.Tab>
 
-            <Tab isActive={chartMatch !== null}>
+            <Style.Tab isActive={chartMatch !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
+            </Style.Tab>
 
-            <Tab isActive={priceMatch !== null}>
+            <Style.Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
-            </Tab>
-          </Tabs>
+            </Style.Tab>
+          </Style.Tabs>
 
           <Switch>
             <Route path={`/:coinId/candleStick`}>
@@ -208,119 +201,8 @@ function Coin({ isDark }: ICoinProps) {
           </Switch>
         </>
       )}
-    </Container>
+    </Style.Container>
   );
 }
 
 export default Coin;
-
-const Container = styled.div`
-  padding: 0px 20px;
-  max-width: 480px;
-  margin: 0 auto;
-`;
-
-const BtnWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const HomeBtn = styled.button`
-  border: none;
-  font-size: 12px;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: ${props => props.theme.boxColor};
-  a {
-    color: ${props => props.theme.textColor};
-    &:hover,
-    :active {
-      color: ${props => props.theme.accentColor};
-    }
-  }
-`;
-
-const ThemeBtn = styled.button`
-  border: none;
-  font-size: 12px;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: ${props => props.theme.boxColor};
-  color: ${props => props.theme.textColor};
-  &:hover,
-  :active {
-    color: ${props => props.theme.accentColor};
-  }
-`;
-
-const Header = styled.header`
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 48px;
-  color: ${props => props.theme.accentColor};
-`;
-
-const Loader = styled.span`
-  text-align: center;
-  display: block;
-`;
-
-const Overview = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: ${props => props.theme.boxColor};
-  padding: 10px 20px;
-  border-radius: 10px;
-`;
-const OverviewItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 33%;
-  span:first-child {
-    font-size: 10px;
-    font-weight: 400;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
-`;
-const Description = styled.p`
-  margin: 20px 0px;
-  background-color: ${props => props.theme.boxColor};
-  padding: 10px 20px;
-  border-radius: 10px;
-  line-height: 1.5;
-`;
-
-const Tabs = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 25px 0px;
-  gap: 10px;
-`;
-
-const Tab = styled.span<{ isActive: boolean }>`
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 400;
-  background-color: ${props => props.theme.boxColor};
-  padding: 7px 0px;
-  border-radius: 10px;
-
-  a {
-    padding: 7px 0px;
-    display: block;
-    color: ${props =>
-      props.isActive ? props.theme.accentColor : props.theme.textColor};
-  }
-`;
