@@ -3,6 +3,8 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { lightTheme, darkTheme } from "./theme";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
 /**add */
@@ -74,14 +76,12 @@ table {
 `;
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleTheme = () => setIsDark(current => !current);
-
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Router isDark={isDark} toggleTheme={toggleTheme} />
+        <Router />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>

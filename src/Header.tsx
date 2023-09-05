@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import * as Style from "./styles/Header";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "./atoms";
 
-interface IHeaderProps {
-  toggleTheme: () => void;
-}
+function Header() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDartAtom = () => setDarkAtom(prev => !prev);
 
-function Header({ toggleTheme }: IHeaderProps) {
   return (
     <Style.BtnWrap>
       <Style.HomeBtn>
         <Link to={"/"}>HOME</Link>
       </Style.HomeBtn>
-      <Style.ThemeBtn onClick={toggleTheme}>THEME</Style.ThemeBtn>
+      <Style.ThemeBtn onClick={toggleDartAtom}>THEME</Style.ThemeBtn>
     </Style.BtnWrap>
   );
 }

@@ -14,10 +14,6 @@ import { Helmet } from "react-helmet";
 import CandleStick from "./CandleStick";
 import * as Style from "../styles/Coin";
 
-interface ICoinProps {
-  isDark: boolean;
-}
-
 interface RouteParams {
   coinId: string;
 }
@@ -91,12 +87,13 @@ interface PriceData {
   };
 }
 
-function Coin({ isDark }: ICoinProps) {
+function Coin() {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>(); // console.log(location | state.name); //state: { name: coin.name }
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
   const candleStickMatch = useRouteMatch("/:coinId/candleStick");
+
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
   // const [priceInfo, setPriceInfo] = useState<PriceData>();
@@ -159,11 +156,12 @@ function Coin({ isDark }: ICoinProps) {
             </Style.OverviewItem>
             <Style.OverviewItem>
               <span>Price:</span>
-              {tickersLoading ? (
+              <span>API Issue!</span>
+              {/* {tickersLoading ? (
                 "Loading"
               ) : (
                 <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
-              )}
+              )} */}
             </Style.OverviewItem>
           </Style.Overview>
           <Style.Description>{infoData?.description}</Style.Description>
@@ -194,13 +192,13 @@ function Coin({ isDark }: ICoinProps) {
 
           <Switch>
             <Route path={`/:coinId/candleStick`}>
-              <CandleStick isDark={isDark} coinId={coinId} />
+              <CandleStick coinId={coinId} />
             </Route>
             <Route path={`/:coinId/price`}>
               <Price tickersData={tickersData} />
             </Route>
             <Route path={`/:coinId/chart`}>
-              <Chart isDark={isDark} coinId={coinId} />
+              <Chart coinId={coinId} />
             </Route>
           </Switch>
         </>

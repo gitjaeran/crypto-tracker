@@ -3,18 +3,13 @@ import Coins from "./routes/Coins";
 import Coin from "./routes/Coin";
 import Header from "./Header";
 
-interface IRouterProps {
-  toggleTheme: () => void;
-  isDark: boolean;
-}
-
-function Router({ toggleTheme, isDark }: IRouterProps) {
+function Router() {
   return (
     <BrowserRouter>
-      <Header toggleTheme={toggleTheme} />
+      <Header />
       <Switch>
         <Route path="/:coinId">
-          <Coin isDark={isDark} />
+          <Coin />
         </Route>
         <Route path="/">
           <Coins />
